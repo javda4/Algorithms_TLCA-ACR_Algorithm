@@ -71,7 +71,7 @@ value = cache.get("A", t=9, loc=(37.77, -122.42))
 - No external libraries needed
 
 ```
-python tlca_acr_cache.py
+python cache_replacement.py
 ```
 
 ## Future modifications
