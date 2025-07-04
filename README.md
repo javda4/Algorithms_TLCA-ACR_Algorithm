@@ -1,22 +1,31 @@
-# Algorithms_TLCA-ACR_Algorithm
+# TLCA-ACR: Time-Location-Context-Aware Adaptive Cache Replacement
 
-**TLCA-ACR (Time-Location-Context-Aware Adaptive Cache Replacement)** is an intelligent, real-time caching algorithm that uses multi-dimensional signals—frequency, recency, time, location, and contextual heuristics—to make proactive cache replacement decisions. It outperforms traditional policies like LRU/LFU in time-sensitive, location-aware, or context-dependent environments such as mobile apps, edge computing, or IoT systems.
+**Author:** Joshua Van Doren  
+ 
+
+---
+
+## 📘 Overview
+
+**TLCA-ACR (Time-Location-Context-Aware Adaptive Cache Replacement)** is an intelligent, real-time caching algorithm that uses multi-dimensional signals—**frequency**, **recency**, **time**, **location**, and **contextual heuristics**—to make proactive cache replacement decisions. It outperforms traditional policies like LRU/LFU in time-sensitive, location-aware, or context-dependent environments such as **mobile apps**, **edge computing**, or **IoT systems**.
 
 ---
 
 ## 🔍 Motivation
 
-Conventional cache algorithms (e.g., LRU, LFU) only consider recent access or frequency, missing real-world signals like:
+Conventional cache algorithms like **LRU** (Least Recently Used) and **LFU** (Least Frequently Used) only consider basic patterns such as access recency or frequency. However, in real-world environments:
 
-- **Time of day**
-- **User location**
-- **Device mode (e.g., gaming, silent, power-saving)**
+- **Time of day** affects user behavior (e.g., peak vs. off-peak usage)
+- **User location** can change data priority (e.g., GPS-based apps)
+- **Device context** (e.g., gaming mode, low battery) can influence cache value
 
-These omissions lead to suboptimal cache performance, especially in dynamic, real-world scenarios. TLCA-ACR addresses this by dynamically scoring cache entries using context-aware inputs.
+These signals are ignored by standard algorithms. TLCA-ACR incorporates them into its scoring to make **more informed** and **application-aware** caching decisions.
 
 ---
 
-## 📐 Score Formula
+## 📐 Scoring Formula
+
+
 ```Score(T) = α⋅freq + β⋅(1/recency) + γ⋅context_value + δ⋅time_weight(t) + ϵ⋅location_weight(x, y)```
 
 
@@ -52,3 +61,22 @@ cache.set_context_functions(
     time_fn=lambda t: 2.0 if 8 <= t <= 10 else 0.5,
     loc_fn=lambda x, y: 2.0 if (x, y) == (37.77, -122.42) else 0.5
 )
+cache.put("A", "Apple", t=9, loc=(37.77, -122.42))
+value = cache.get("A", t=9, loc=(37.77, -122.42))
+```
+
+## ▶️ How to Run
+
+- Python 3.6+
+- No external libraries needed
+
+```
+python tlca_acr_cache.py
+```
+
+## Future modifications
+- cli usability
+- access to dataset implementation
+- Faster implementation of extensive amounts of context functions
+
+
